@@ -20,6 +20,7 @@ public class TaskFlowTests extends BaseTest {
     private static final String VALID_EMAIL = "admin@gmail.com";
     private static final String VALID_PASSWORD = "admin123";
     private static final String TASKS_STORAGE_KEY = "taskflow-tasks";
+    private static final String USERS_STORAGE_KEY = "registered-users";
 
     @Test(priority = 1)
     public void validLoginTest() {
@@ -43,6 +44,41 @@ public class TaskFlowTests extends BaseTest {
     }
 
     @Test(priority = 3)
+    public void successfulRegistrationTest() {
+        String email = uniqueEmail();
+        String password = "newuser123";
+
+        openRegisterPage();
+        registerUser("Selenium User", email, password, password);
+
+        helper.waitForTextInLocalStorage(USERS_STORAGE_KEY, email);
+        helper.waitForUrlContains("index.html");
+        login(email, password);
+
+        helper.waitForUrlContains("dashboard.html");
+        Assert.assertTrue(helper.isVisible(By.xpath("//h1[contains(normalize-space(),'Dashboard')]")),
+                "Newly registered user should be able to login.");
+    }
+
+    @Test(priority = 4)
+    public void duplicateEmailRegistrationTest() {
+        String email = uniqueEmail();
+        String password = "duplicate123";
+
+        openRegisterPage();
+        registerUser("First User", email, password, password);
+        helper.waitForUrlContains("index.html");
+
+        openRegisterPage();
+        registerUser("Second User", email, password, password);
+
+        Assert.assertTrue(helper.isVisible(By.cssSelector(".auth-error")),
+                "Duplicate email should show validation error.");
+        Assert.assertTrue(helper.text(By.cssSelector(".auth-error")).contains("Email already registered"),
+                "Duplicate email message should be visible.");
+    }
+
+    @Test(priority = 5)
     public void addTaskTest() {
         String title = uniqueTitle("Add Task");
 
@@ -55,7 +91,7 @@ public class TaskFlowTests extends BaseTest {
                 "Success toast should appear after task creation.");
     }
 
-    @Test(priority = 4)
+    @Test(priority = 6)
     public void editTaskTest() {
         String title = uniqueTitle("Edit Task");
         String updatedTitle = title + " Updated";
@@ -74,7 +110,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertFalse(isTaskVisible(title), "Old task title should not remain visible after edit.");
     }
 
-    @Test(priority = 5)
+    @Test(priority = 7)
     public void deleteTaskTest() {
         String title = uniqueTitle("Delete Task");
 
@@ -88,7 +124,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertFalse(isTaskVisible(title), "Deleted task should not be visible.");
     }
 
-    @Test(priority = 6)
+    @Test(priority = 8)
     public void searchTaskTest() {
         String title = uniqueTitle("Search Task");
 
@@ -100,7 +136,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertTrue(isTaskVisible(title), "Task should be visible after searching by title.");
     }
 
-    @Test(priority = 7)
+    @Test(priority = 9)
     public void markTaskCompletedTest() {
         String title = uniqueTitle("Complete Task");
 
@@ -112,7 +148,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertTrue(helper.isVisible(completedTask), "Task should move to Completed column.");
     }
 
-    @Test(priority = 8)
+    @Test(priority = 10)
     public void logoutTest() {
         login(VALID_EMAIL, VALID_PASSWORD);
         helper.waitForUrlContains("dashboard.html");
@@ -129,6 +165,20 @@ public class TaskFlowTests extends BaseTest {
         helper.type(By.id("email"), email);
         helper.type(By.id("password"), password);
         helper.click(By.cssSelector("button[type='submit']"));
+    }
+
+    private void openRegisterPage() {
+        getDriver().get(baseUrl.replace("index.html", "register.html"));
+        helper.waitForVisible(By.id("registerName"));
+    }
+
+    private void registerUser(String name, String email, String password, String confirmPassword) {
+        System.out.println("[INFO] Registering user with email: " + email);
+        helper.type(By.id("registerName"), name);
+        helper.type(By.id("registerEmail"), email);
+        helper.type(By.id("registerPassword"), password);
+        helper.type(By.id("confirmPassword"), confirmPassword);
+        helper.click(By.cssSelector("form[data-storage-key='user-register'] button[type='submit']"));
     }
 
     private void loginAndOpenTasks() {
@@ -177,5 +227,9 @@ public class TaskFlowTests extends BaseTest {
 
     private String uniqueTitle(String prefix) {
         return prefix + " " + System.currentTimeMillis();
+    }
+
+    private String uniqueEmail() {
+        return "selenium" + System.currentTimeMillis() + "@example.com";
     }
 }

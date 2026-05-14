@@ -7,6 +7,7 @@ const AppState = {
   keys: {
     token: 'user-token',
     user: 'user-data',
+    users: 'registered-users',
     tasks: 'taskflow-tasks',
     theme: 'taskapp-dark-mode',
     notifications: 'taskflow-notifications',
@@ -277,7 +278,7 @@ const Utils = {
   },
   isAuthPage() {
     const page = this.currentPage();
-    return page === 'index' || page === '';
+    return page === 'index' || page === 'register' || page === '';
   },
   isOverdue(task) {
     if (!task.dueDate || task.status === 'completed') return false;
@@ -352,6 +353,7 @@ class AuthManager {
   init() {
     if (Utils.isAuthPage()) {
       this.setupLogin();
+      this.setupRegistration();
       if (localStorage.getItem(AppState.keys.token)) {
         window.location.href = 'dashboard.html';
       }
@@ -367,7 +369,7 @@ class AuthManager {
   }
 
   setupLogin() {
-    const form = DOM.query('form[data-storage-key="user-login"]') || DOM.query('form');
+    const form = DOM.query('form[data-storage-key="user-login"]');
     if (!form) return;
 
     form.addEventListener('submit', (event) => {
@@ -375,16 +377,84 @@ class AuthManager {
       const email = DOM.query('#email')?.value.trim().toLowerCase();
       const password = DOM.query('#password')?.value.trim();
 
-      if (email === AppState.credentials.email && password === AppState.credentials.password) {
-        const user = { email, name: 'Admin User', role: 'Project Manager' };
-        Store.write(AppState.keys.user, user);
+      const user = this.findUser(email, password);
+      if (user) {
+        const userData = { email: user.email, name: user.name, role: user.role || 'Project Manager' };
+        Store.write(AppState.keys.user, userData);
         localStorage.setItem(AppState.keys.token, `token_${Date.now()}`);
         Toasts.show('Login successful. Opening your dashboard.', 'success');
         setTimeout(() => { window.location.href = 'dashboard.html'; }, 550);
       } else {
-        this.showLoginError(form, 'Invalid email or password. Use admin@gmail.com / admin123.');
+        this.showLoginError(form, 'Invalid email or password.');
       }
     });
+  }
+
+  setupRegistration() {
+    const form = DOM.query('form[data-storage-key="user-register"]');
+    if (!form) return;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nameInput = DOM.query('#registerName');
+      const emailInput = DOM.query('#registerEmail');
+      const passwordInput = DOM.query('#registerPassword');
+      const confirmPasswordInput = DOM.query('#confirmPassword');
+      const name = nameInput?.value.trim();
+      const email = emailInput?.value.trim().toLowerCase();
+      const password = passwordInput?.value.trim();
+      const confirmPassword = confirmPasswordInput?.value.trim();
+
+      this.clearAuthError(form);
+
+      if (!name || !email || !password || !confirmPassword) {
+        this.showLoginError(form, 'All registration fields are required.');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        this.showLoginError(form, 'Password and confirm password must match.');
+        return;
+      }
+
+      if (this.findUserByEmail(email)) {
+        this.showLoginError(form, 'Email already registered. Please login instead.');
+        return;
+      }
+
+      const users = this.registeredUsers();
+      users.push({ name, email, password, role: 'Project Manager' });
+      Store.write(AppState.keys.users, users);
+      Toasts.show('Registration successful. Please login.', 'success');
+      setTimeout(() => { window.location.href = 'index.html'; }, 650);
+    });
+  }
+
+  registeredUsers() {
+    const users = Store.read(AppState.keys.users, []);
+    const seededUsers = Array.isArray(users) ? users : [];
+    if (!seededUsers.some((user) => user.email === AppState.credentials.email)) {
+      seededUsers.unshift({
+        name: 'Admin User',
+        email: AppState.credentials.email,
+        password: AppState.credentials.password,
+        role: 'Project Manager',
+      });
+      Store.write(AppState.keys.users, seededUsers);
+    }
+    return seededUsers;
+  }
+
+  findUser(email, password) {
+    return this.registeredUsers().find((user) => user.email === email && user.password === password);
+  }
+
+  findUserByEmail(email) {
+    return this.registeredUsers().find((user) => user.email === email);
+  }
+
+  clearAuthError(form) {
+    DOM.query('.auth-error', form)?.remove();
   }
 
   showLoginError(form, message) {
