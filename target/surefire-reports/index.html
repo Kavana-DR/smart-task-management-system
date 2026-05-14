@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">10 methods,   10 passed</span>
+                    <span class="method-stats">11 methods,   11 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -144,6 +144,11 @@
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Smart_Task_Management_System_Automation_Suite" title="tests.TaskFlowTests" class="method navigator-link" hash-for-method="successfulRegistrationTest">successfulRegistrationTest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Smart_Task_Management_System_Automation_Suite" title="tests.TaskFlowTests" class="method navigator-link" hash-for-method="userSpecificTasksTest">userSpecificTasksTest</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
@@ -234,6 +239,13 @@
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
+                  <a name="userSpecificTasksTest">
+                  </a> <!-- userSpecificTasksTest -->
+                  <span class="method-name">userSpecificTasksTest</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
                   <a name="validLoginTest">
                   </a> <!-- validLoginTest -->
                   <span class="method-name">validLoginTest</span>
@@ -296,47 +308,51 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(10);
+data.addRows(11);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'editTaskTest')
+data.setCell(0, 1, 'userSpecificTasksTest')
 data.setCell(0, 2, 'tests.TaskFlowTests')
-data.setCell(0, 3, 17396);
+data.setCell(0, 3, 22709);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'deleteTaskTest')
+data.setCell(1, 1, 'editTaskTest')
 data.setCell(1, 2, 'tests.TaskFlowTests')
-data.setCell(1, 3, 16609);
+data.setCell(1, 3, 17660);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'duplicateEmailRegistrationTest')
+data.setCell(2, 1, 'deleteTaskTest')
 data.setCell(2, 2, 'tests.TaskFlowTests')
-data.setCell(2, 3, 4355);
+data.setCell(2, 3, 17260);
 data.setCell(3, 0, 3)
 data.setCell(3, 1, 'searchTaskTest')
 data.setCell(3, 2, 'tests.TaskFlowTests')
-data.setCell(3, 3, 4223);
+data.setCell(3, 3, 4695);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'markTaskCompletedTest')
+data.setCell(4, 1, 'successfulRegistrationTest')
 data.setCell(4, 2, 'tests.TaskFlowTests')
-data.setCell(4, 3, 3995);
+data.setCell(4, 3, 4589);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'successfulRegistrationTest')
+data.setCell(5, 1, 'addTaskTest')
 data.setCell(5, 2, 'tests.TaskFlowTests')
-data.setCell(5, 3, 3929);
+data.setCell(5, 3, 4458);
 data.setCell(6, 0, 6)
-data.setCell(6, 1, 'addTaskTest')
+data.setCell(6, 1, 'duplicateEmailRegistrationTest')
 data.setCell(6, 2, 'tests.TaskFlowTests')
-data.setCell(6, 3, 3691);
+data.setCell(6, 3, 4050);
 data.setCell(7, 0, 7)
-data.setCell(7, 1, 'logoutTest')
+data.setCell(7, 1, 'markTaskCompletedTest')
 data.setCell(7, 2, 'tests.TaskFlowTests')
-data.setCell(7, 3, 2903);
+data.setCell(7, 3, 3974);
 data.setCell(8, 0, 8)
-data.setCell(8, 1, 'validLoginTest')
+data.setCell(8, 1, 'logoutTest')
 data.setCell(8, 2, 'tests.TaskFlowTests')
-data.setCell(8, 3, 2474);
+data.setCell(8, 3, 3036);
 data.setCell(9, 0, 9)
-data.setCell(9, 1, 'invalidLoginTest')
+data.setCell(9, 1, 'validLoginTest')
 data.setCell(9, 2, 'tests.TaskFlowTests')
-data.setCell(9, 3, 1300);
+data.setCell(9, 3, 2536);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'invalidLoginTest')
+data.setCell(10, 2, 'tests.TaskFlowTests')
+data.setCell(10, 3, 1524);
 window.suiteTableData['Smart_Task_Management_System_Automation_Suite']= { tableData: data, tableDiv: 'times-div-Smart_Task_Management_System_Automation_Suite'}
 return data;
 }
@@ -374,119 +390,131 @@ return data;
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validLoginTest</span>
-                <span class="method-start">4088 ms</span>
+                <span class="method-start">3873 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">6567 ms</span>
+                <span class="method-start">6412 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">7010 ms</span>
+                <span class="method-start">6779 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">invalidLoginTest</span>
-                <span class="method-start">9173 ms</span>
+                <span class="method-start">8500 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">10473 ms</span>
+                <span class="method-start">10025 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">10749 ms</span>
+                <span class="method-start">10385 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">successfulRegistrationTest</span>
-                <span class="method-start">12819 ms</span>
+                <span class="method-start">12319 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">16749 ms</span>
+                <span class="method-start">16909 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">17074 ms</span>
+                <span class="method-start">17247 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">duplicateEmailRegistrationTest</span>
-                <span class="method-start">19073 ms</span>
+                <span class="method-start">19122 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">23430 ms</span>
+                <span class="method-start">23173 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">23814 ms</span>
+                <span class="method-start">23555 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">userSpecificTasksTest</span>
+                <span class="method-start">25407 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">48118 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">48556 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">addTaskTest</span>
-                <span class="method-start">25849 ms</span>
+                <span class="method-start">50468 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">29541 ms</span>
+                <span class="method-start">54927 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">30089 ms</span>
+                <span class="method-start">55396 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">editTaskTest</span>
-                <span class="method-start">32104 ms</span>
+                <span class="method-start">57410 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">49501 ms</span>
+                <span class="method-start">75071 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">49847 ms</span>
+                <span class="method-start">75391 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">deleteTaskTest</span>
-                <span class="method-start">51842 ms</span>
+                <span class="method-start">77276 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">68452 ms</span>
+                <span class="method-start">94537 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">68795 ms</span>
+                <span class="method-start">94911 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">searchTaskTest</span>
-                <span class="method-start">70884 ms</span>
+                <span class="method-start">96734 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">75108 ms</span>
+                <span class="method-start">101430 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">75566 ms</span>
+                <span class="method-start">102007 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">markTaskCompletedTest</span>
-                <span class="method-start">77564 ms</span>
+                <span class="method-start">103727 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">81560 ms</span>
+                <span class="method-start">107702 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">81963 ms</span>
+                <span class="method-start">108155 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">logoutTest</span>
-                <span class="method-start">83885 ms</span>
+                <span class="method-start">109892 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">86789 ms</span>
+                <span class="method-start">112928 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

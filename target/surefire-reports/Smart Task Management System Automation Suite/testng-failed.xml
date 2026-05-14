@@ -8,9 +8,19 @@
     <classes>
       <class name="tests.TaskFlowTests">
         <methods>
+          <include name="validLoginTest"/>
+          <include name="editTaskTest"/>
+          <include name="searchTaskTest"/>
           <include name="setUp"/>
-          <include name="tearDown"/>
+          <include name="logoutTest"/>
+          <include name="successfulRegistrationTest"/>
           <include name="deleteTaskTest"/>
+          <include name="tearDown"/>
+          <include name="addTaskTest"/>
+          <include name="duplicateEmailRegistrationTest"/>
+          <include name="markTaskCompletedTest"/>
+          <include name="invalidLoginTest"/>
+          <include name="userSpecificTasksTest"/>
         </methods>
       </class> <!-- tests.TaskFlowTests -->
     </classes>

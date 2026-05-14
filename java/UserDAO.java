@@ -66,6 +66,26 @@ public class UserDAO {
         }
     }
 
+    public int getUserIdByEmail(String email) {
+        String sql = "SELECT id FROM users WHERE email = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, email.trim().toLowerCase());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println("User lookup failed: " + exception.getMessage());
+        }
+
+        return -1;
+    }
+
     public boolean emailExists(String email) {
         String sql = "SELECT id FROM users WHERE email = ?";
 

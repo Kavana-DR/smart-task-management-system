@@ -60,23 +60,35 @@ const Store = {
 };
 
 const TaskStore = {
+  currentUser() {
+    return Store.read(AppState.keys.user, null);
+  },
+  currentUserId() {
+    return this.currentUser()?.id || 'guest';
+  },
+  storageKey() {
+    return `${AppState.keys.tasks}-${this.currentUserId()}`;
+  },
+  shouldSeedDemoTasks() {
+    return this.currentUserId() === 'user-admin';
+  },
   all() {
-    const tasks = Store.read(AppState.keys.tasks, null);
+    const tasks = Store.read(this.storageKey(), null);
     if (Array.isArray(tasks)) {
       const normalizedTasks = this.normalize(tasks);
       if (JSON.stringify(normalizedTasks) !== JSON.stringify(tasks)) {
-        Store.write(AppState.keys.tasks, normalizedTasks);
+        Store.write(this.storageKey(), normalizedTasks);
       }
       return normalizedTasks;
     }
 
-    const seededTasks = this.normalize(this.seed());
+    const seededTasks = this.shouldSeedDemoTasks() ? this.normalize(this.seed()) : [];
     this.save(seededTasks);
     return seededTasks;
   },
   save(tasks) {
     const normalizedTasks = this.normalize(tasks);
-    Store.write(AppState.keys.tasks, normalizedTasks);
+    Store.write(this.storageKey(), normalizedTasks);
     window.dispatchEvent(new CustomEvent('tasks-updated', { detail: normalizedTasks }));
   },
   upsert(task) {
@@ -303,6 +315,9 @@ const Utils = {
     if (window.crypto?.randomUUID) return window.crypto.randomUUID();
     return `task_${Date.now()}_${Math.random().toString(16).slice(2)}`;
   },
+  userId(email = '') {
+    return `user-${String(email).toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+  },
   escape(text = '') {
     return String(text)
       .replaceAll('&', '&amp;')
@@ -379,7 +394,12 @@ class AuthManager {
 
       const user = this.findUser(email, password);
       if (user) {
-        const userData = { email: user.email, name: user.name, role: user.role || 'Project Manager' };
+        const userData = {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role || 'Project Manager',
+        };
         Store.write(AppState.keys.user, userData);
         localStorage.setItem(AppState.keys.token, `token_${Date.now()}`);
         Toasts.show('Login successful. Opening your dashboard.', 'success');
@@ -423,7 +443,7 @@ class AuthManager {
       }
 
       const users = this.registeredUsers();
-      users.push({ name, email, password, role: 'Project Manager' });
+      users.push({ id: Utils.userId(email), name, email, password, role: 'Project Manager' });
       Store.write(AppState.keys.users, users);
       Toasts.show('Registration successful. Please login.', 'success');
       setTimeout(() => { window.location.href = 'index.html'; }, 650);
@@ -435,6 +455,7 @@ class AuthManager {
     const seededUsers = Array.isArray(users) ? users : [];
     if (!seededUsers.some((user) => user.email === AppState.credentials.email)) {
       seededUsers.unshift({
+        id: 'user-admin',
         name: 'Admin User',
         email: AppState.credentials.email,
         password: AppState.credentials.password,
@@ -442,6 +463,10 @@ class AuthManager {
       });
       Store.write(AppState.keys.users, seededUsers);
     }
+    seededUsers.forEach((user) => {
+      if (!user.id) user.id = Utils.userId(user.email);
+    });
+    Store.write(AppState.keys.users, seededUsers);
     return seededUsers;
   }
 
@@ -1029,7 +1054,7 @@ class QuickActions {
 class FormManager {
   init() {
     DOM.queryAll('form').forEach((form) => {
-      if (form.dataset.storageKey === 'user-login' || form.closest('#addTaskModal')) return;
+      if (form.dataset.storageKey === 'user-login' || form.dataset.storageKey === 'user-register' || form.closest('#addTaskModal')) return;
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         const data = Object.fromEntries(new FormData(form));

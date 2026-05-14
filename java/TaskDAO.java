@@ -13,8 +13,8 @@ import java.sql.SQLException;
  */
 public class TaskDAO {
 
-    public void insertTask(String title, String description, String priority, String status, String dueDate) {
-        String sql = "INSERT INTO tasks (title, description, priority, status, due_date) VALUES (?, ?, ?, ?, ?)";
+    public void insertTask(int userId, String title, String description, String priority, String status, String dueDate) {
+        String sql = "INSERT INTO tasks (user_id, title, description, priority, status, due_date) VALUES (?, ?, ?, ?, ?, ?)";
 
         /*
          * JDBC insert flow:
@@ -26,11 +26,12 @@ public class TaskDAO {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, title);
-            statement.setString(2, description);
-            statement.setString(3, priority);
-            statement.setString(4, status);
-            statement.setDate(5, Date.valueOf(dueDate));
+            statement.setInt(1, userId);
+            statement.setString(2, title);
+            statement.setString(3, description);
+            statement.setString(4, priority);
+            statement.setString(5, status);
+            statement.setDate(6, Date.valueOf(dueDate));
 
             int rowsInserted = statement.executeUpdate();
             System.out.println(rowsInserted + " task inserted successfully.");
@@ -39,8 +40,8 @@ public class TaskDAO {
         }
     }
 
-    public void fetchTasks() {
-        String sql = "SELECT id, title, description, priority, status, due_date FROM tasks ORDER BY id DESC";
+    public void fetchTasks(int userId) {
+        String sql = "SELECT id, user_id, title, description, priority, status, due_date FROM tasks WHERE user_id = ? ORDER BY id DESC";
 
         /*
          * JDBC fetch flow:
@@ -50,26 +51,30 @@ public class TaskDAO {
          * 4. Read each column value.
          */
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            System.out.println("\n--- Task List ---");
-            while (resultSet.next()) {
-                System.out.println("ID: " + resultSet.getInt("id"));
-                System.out.println("Title: " + resultSet.getString("title"));
-                System.out.println("Description: " + resultSet.getString("description"));
-                System.out.println("Priority: " + resultSet.getString("priority"));
-                System.out.println("Status: " + resultSet.getString("status"));
-                System.out.println("Due Date: " + resultSet.getDate("due_date"));
-                System.out.println("--------------------");
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                System.out.println("\n--- Task List for User ID " + userId + " ---");
+                while (resultSet.next()) {
+                    System.out.println("ID: " + resultSet.getInt("id"));
+                    System.out.println("User ID: " + resultSet.getInt("user_id"));
+                    System.out.println("Title: " + resultSet.getString("title"));
+                    System.out.println("Description: " + resultSet.getString("description"));
+                    System.out.println("Priority: " + resultSet.getString("priority"));
+                    System.out.println("Status: " + resultSet.getString("status"));
+                    System.out.println("Due Date: " + resultSet.getDate("due_date"));
+                    System.out.println("--------------------");
+                }
             }
         } catch (SQLException exception) {
             System.out.println("Fetch failed: " + exception.getMessage());
         }
     }
 
-    public void updateTask(int id, String title, String description, String priority, String status, String dueDate) {
-        String sql = "UPDATE tasks SET title = ?, description = ?, priority = ?, status = ?, due_date = ? WHERE id = ?";
+    public void updateTask(int userId, int taskId, String title, String description, String priority, String status, String dueDate) {
+        String sql = "UPDATE tasks SET title = ?, description = ?, priority = ?, status = ?, due_date = ? WHERE id = ? AND user_id = ?";
 
         /*
          * JDBC update flow:
@@ -86,7 +91,8 @@ public class TaskDAO {
             statement.setString(3, priority);
             statement.setString(4, status);
             statement.setDate(5, Date.valueOf(dueDate));
-            statement.setInt(6, id);
+            statement.setInt(6, taskId);
+            statement.setInt(7, userId);
 
             int rowsUpdated = statement.executeUpdate();
             System.out.println(rowsUpdated + " task updated successfully.");
@@ -95,8 +101,8 @@ public class TaskDAO {
         }
     }
 
-    public void deleteTask(int id) {
-        String sql = "DELETE FROM tasks WHERE id = ?";
+    public void deleteTask(int userId, int taskId) {
+        String sql = "DELETE FROM tasks WHERE id = ? AND user_id = ?";
 
         /*
          * JDBC delete flow:
@@ -107,7 +113,8 @@ public class TaskDAO {
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, id);
+            statement.setInt(1, taskId);
+            statement.setInt(2, userId);
 
             int rowsDeleted = statement.executeUpdate();
             System.out.println(rowsDeleted + " task deleted successfully.");
@@ -118,8 +125,16 @@ public class TaskDAO {
 
     public static void main(String[] args) {
         TaskDAO taskDAO = new TaskDAO();
+        UserDAO userDAO = new UserDAO();
+        int loggedInUserId = userDAO.getUserIdByEmail("admin@gmail.com");
+
+        if (loggedInUserId == -1) {
+            System.out.println("Demo user not found. Run database/schema.sql first.");
+            return;
+        }
 
         taskDAO.insertTask(
+                loggedInUserId,
                 "Prepare JDBC Demo",
                 "Create simple MySQL CRUD example for internship presentation",
                 "High",
@@ -127,9 +142,10 @@ public class TaskDAO {
                 "2026-05-20"
         );
 
-        taskDAO.fetchTasks();
+        taskDAO.fetchTasks(loggedInUserId);
 
         taskDAO.updateTask(
+                loggedInUserId,
                 1,
                 "Prepare JDBC Demo Updated",
                 "Explain JDBC Connection, PreparedStatement, and ResultSet",
@@ -138,9 +154,9 @@ public class TaskDAO {
                 "2026-05-21"
         );
 
-        taskDAO.fetchTasks();
+        taskDAO.fetchTasks(loggedInUserId);
 
-        // Change this id to delete a real task from your database.
-        // taskDAO.deleteTask(1);
+        // Change this task id to delete a real task for the logged-in user.
+        // taskDAO.deleteTask(loggedInUserId, 1);
     }
 }

@@ -43,6 +43,15 @@ public class SeleniumHelper {
         });
     }
 
+    public void waitForTextInCurrentUserTasks(String text) {
+        wait.until(driver -> {
+            Object value = ((JavascriptExecutor) driver).executeScript(
+                    "const user = JSON.parse(localStorage.getItem('user-data') || '{}');"
+                            + "return localStorage.getItem('taskflow-tasks-' + user.id);");
+            return value != null && value.toString().contains(text);
+        });
+    }
+
     public void click(By locator) {
         try {
             WebElement element = waitForClickable(locator);

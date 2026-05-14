@@ -19,7 +19,6 @@ import utilities.BaseTest;
 public class TaskFlowTests extends BaseTest {
     private static final String VALID_EMAIL = "admin@gmail.com";
     private static final String VALID_PASSWORD = "admin123";
-    private static final String TASKS_STORAGE_KEY = "taskflow-tasks";
     private static final String USERS_STORAGE_KEY = "registered-users";
 
     @Test(priority = 1)
@@ -79,6 +78,37 @@ public class TaskFlowTests extends BaseTest {
     }
 
     @Test(priority = 5)
+    public void userSpecificTasksTest() {
+        String firstUserEmail = uniqueEmail();
+        String secondUserEmail = uniqueEmail();
+        String password = "private123";
+        String privateTaskTitle = uniqueTitle("Private Task");
+
+        openRegisterPage();
+        registerUser("First Task User", firstUserEmail, password, password);
+        helper.waitForUrlContains("index.html");
+        login(firstUserEmail, password);
+        helper.waitForUrlContains("dashboard.html");
+        helper.click(By.cssSelector("[data-page='tasks']"));
+        helper.waitForUrlContains("tasks.html");
+        createTask(privateTaskTitle, "Only first user should see this", "High", "To Do", "2026-05-25");
+        Assert.assertTrue(isTaskVisible(privateTaskTitle), "First user should see their own task.");
+
+        helper.click(By.cssSelector("[data-page='logout']"));
+        helper.waitForUrlContains("index.html");
+
+        openRegisterPage();
+        registerUser("Second Task User", secondUserEmail, password, password);
+        helper.waitForUrlContains("index.html");
+        login(secondUserEmail, password);
+        helper.waitForUrlContains("dashboard.html");
+        helper.click(By.cssSelector("[data-page='tasks']"));
+        helper.waitForUrlContains("tasks.html");
+
+        Assert.assertFalse(isTaskVisible(privateTaskTitle), "Second user should not see first user's task.");
+    }
+
+    @Test(priority = 6)
     public void addTaskTest() {
         String title = uniqueTitle("Add Task");
 
@@ -91,7 +121,7 @@ public class TaskFlowTests extends BaseTest {
                 "Success toast should appear after task creation.");
     }
 
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void editTaskTest() {
         String title = uniqueTitle("Edit Task");
         String updatedTitle = title + " Updated";
@@ -104,13 +134,13 @@ public class TaskFlowTests extends BaseTest {
         helper.type(By.id("taskDesc"), "Task edited by Selenium");
         helper.click(By.cssSelector("#addTaskModal .modal-footer .btn-primary"));
 
-        helper.waitForTextInLocalStorage(TASKS_STORAGE_KEY, updatedTitle);
+        helper.waitForTextInCurrentUserTasks(updatedTitle);
         helper.waitForVisible(taskCardByTitle(updatedTitle));
         Assert.assertTrue(isTaskVisible(updatedTitle), "Updated task title should be visible.");
         Assert.assertFalse(isTaskVisible(title), "Old task title should not remain visible after edit.");
     }
 
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void deleteTaskTest() {
         String title = uniqueTitle("Delete Task");
 
@@ -124,7 +154,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertFalse(isTaskVisible(title), "Deleted task should not be visible.");
     }
 
-    @Test(priority = 8)
+    @Test(priority = 9)
     public void searchTaskTest() {
         String title = uniqueTitle("Search Task");
 
@@ -136,7 +166,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertTrue(isTaskVisible(title), "Task should be visible after searching by title.");
     }
 
-    @Test(priority = 9)
+    @Test(priority = 10)
     public void markTaskCompletedTest() {
         String title = uniqueTitle("Complete Task");
 
@@ -148,7 +178,7 @@ public class TaskFlowTests extends BaseTest {
         Assert.assertTrue(helper.isVisible(completedTask), "Task should move to Completed column.");
     }
 
-    @Test(priority = 10)
+    @Test(priority = 11)
     public void logoutTest() {
         login(VALID_EMAIL, VALID_PASSWORD);
         helper.waitForUrlContains("dashboard.html");
@@ -200,7 +230,7 @@ public class TaskFlowTests extends BaseTest {
         helper.setInputValue(By.id("taskDueDate"), dueDate);
         helper.selectByVisibleText(By.id("taskStatus"), status);
         helper.click(By.cssSelector("#addTaskModal .modal-footer .btn-primary"));
-        helper.waitForTextInLocalStorage(TASKS_STORAGE_KEY, title);
+        helper.waitForTextInCurrentUserTasks(title);
         helper.waitForInvisible(By.cssSelector("#addTaskModal.active"));
         helper.waitForVisible(taskCardByTitle(title));
     }
@@ -230,6 +260,6 @@ public class TaskFlowTests extends BaseTest {
     }
 
     private String uniqueEmail() {
-        return "selenium" + System.currentTimeMillis() + "@example.com";
+        return "selenium" + System.nanoTime() + "@example.com";
     }
 }
