@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Smart Task Management System</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="main-wrapper">
+    <!-- ============================================
+         SIDEBAR NAVIGATION
+         ============================================ -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <i class="fas fa-tasks"></i>
+        <span>TaskFlow</span>
+      </div>
+
+      <!-- Main Navigation -->
+      <div class="nav-section">
+        <div class="nav-section-title">Menu</div>
+        <div class="nav-item active" data-page="dashboard">
+          <i class="fas fa-grid-alt"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-page="tasks">
+          <i class="fas fa-list-check"></i>
+          <span>Tasks</span>
+        </div>
+        <div class="nav-item" data-page="calendar">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Calendar</span>
+        </div>
+        <div class="nav-item" data-page="analytics">
+          <i class="fas fa-chart-line"></i>
+          <span>Analytics</span>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div class="nav-section">
+        <div class="nav-section-title">Team</div>
+        <div class="nav-item" data-page="team">
+          <i class="fas fa-users"></i>
+          <span>Team Members</span>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="nav-section">
+        <div class="nav-section-title">Settings</div>
+        <div class="nav-item" data-page="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+      </div>
+
+      <div class="nav-separator"></div>
+
+      <!-- Footer -->
+      <div class="sidebar-footer">
+        <div class="nav-item" data-page="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
+    <div class="content-wrapper">
+      <!-- ============================================
+           NAVBAR
+           ============================================ -->
+      <nav class="navbar">
+        <div class="navbar-content">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search tasks, team members...">
+          </div>
+
+          <div class="navbar-right">
+            <!-- Notification Icon -->
+            <button class="navbar-icon" title="Notifications">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button class="navbar-icon theme-toggle" title="Toggle dark mode">
+              <i class="fas fa-moon"></i>
+            </button>
+
+            <!-- Profile -->
+            <div class="profile-section">
+              <div class="profile-avatar">JD</div>
+              <div class="profile-info">
+                <div class="profile-name">John Doe</div>
+                <div class="profile-role">Project Manager</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ============================================
+           PAGE CONTENT
+           ============================================ -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-title">
+            <h1>Dashboard</h1>
+            <p>Welcome back! Here's your task overview.</p>
+          </div>
+          <button class="btn btn-primary">
+            <i class="fas fa-plus"></i>New Task
+          </button>
+        </div>
+
+        <!-- ============================================
+             STATISTICS CARDS
+             ============================================ -->
+        <div class="stats-grid">
+          <!-- Total Tasks -->
+          <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-label">Total Tasks</div>
+            <div class="stat-value" data-counter="156">0</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>12% from last week</span>
+            </div>
+          </div>
+
+          <!-- Completed Tasks -->
+          <div class="stat-card green">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-label">Completed Tasks</div>
+            <div class="stat-value" data-counter="98">0</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>8% from last week</span>
+            </div>
+          </div>
+
+          <!-- Pending Tasks -->
+          <div class="stat-card orange">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+              <i class="fas fa-hourglass-end"></i>
+            </div>
+            <div class="stat-label">Pending Tasks</div>
+            <div class="stat-value" data-counter="45">0</div>
+            <div class="stat-change negative">
+              <i class="fas fa-arrow-down"></i>
+              <span>3% from last week</span>
+            </div>
+          </div>
+
+          <!-- Overdue Tasks -->
+          <div class="stat-card red">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="stat-label">Overdue Tasks</div>
+            <div class="stat-value" data-counter="13">0</div>
+            <div class="stat-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>Action needed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+             CHARTS SECTION
+             ============================================ -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+          <!-- Productivity Chart -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Weekly Productivity</h3>
+              <select style="background: rgba(102, 126, 234, 0.1); border: 1px solid rgba(102, 126, 234, 0.3); padding: 0.5rem 1rem; border-radius: 0.5rem; color: var(--text-dark); cursor: pointer;">
+                <option>This Week</option>
+                <option>Last Week</option>
+                <option>This Month</option>
+              </select>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="productivityChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Task Distribution Chart -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Task Distribution</h3>
+            </div>
+            <div class="card-body">
+              <div class="chart-container">
+                <canvas id="taskDistributionChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+             QUICK STATS & ACTIVITY
+             ============================================ -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Activity</h3>
+              <a href="#" style="font-size: 0.85rem; color: var(--info);">View All</a>
+            </div>
+            <div class="card-body">
+              <div class="activity-feed">
+                <div class="activity-item">
+                  <div class="activity-avatar">SA</div>
+                  <div class="activity-content">
+                    <div class="activity-description">Sarah completed <strong>"API Integration"</strong></div>
+                    <div class="activity-time">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MC</div>
+                  <div class="activity-content">
+                    <div class="activity-description">Mike commented on <strong>"Database Schema"</strong></div>
+                    <div class="activity-time">4 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">JD</div>
+                  <div class="activity-content">
+                    <div class="activity-description">John assigned <strong>"Design Mockups"</strong> to you</div>
+                    <div class="activity-time">6 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">EM</div>
+                  <div class="activity-content">
+                    <div class="activity-description">Emma created <strong>"Q4 Planning"</strong> task</div>
+                    <div class="activity-time">1 day ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Deadlines -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Upcoming Deadlines</h3>
+              <a href="#" style="font-size: 0.85rem; color: var(--info);">View Calendar</a>
+            </div>
+            <div class="card-body">
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 0.5rem; border-left: 4px solid var(--danger);">
+                  <div style="font-weight: 600; color: var(--danger); margin-bottom: 0.25rem;">Client Presentation</div>
+                  <div style="font-size: 0.85rem; color: var(--text-gray);">Tomorrow at 2:00 PM</div>
+                  <div style="margin-top: 0.5rem;">
+                    <span class="badge badge-danger">High Priority</span>
+                  </div>
+                </div>
+                <div style="padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 0.5rem; border-left: 4px solid var(--warning);">
+                  <div style="font-weight: 600; color: var(--warning); margin-bottom: 0.25rem;">Sprint Review</div>
+                  <div style="font-size: 0.85rem; color: var(--text-gray);">Friday at 10:00 AM</div>
+                  <div style="margin-top: 0.5rem;">
+                    <span class="badge badge-warning">Medium Priority</span>
+                  </div>
+                </div>
+                <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.5rem; border-left: 4px solid var(--success);">
+                  <div style="font-weight: 600; color: var(--success); margin-bottom: 0.25rem;">Code Review</div>
+                  <div style="font-size: 0.85rem; color: var(--text-gray);">Next Monday</div>
+                  <div style="margin-top: 0.5rem;">
+                    <span class="badge badge-success">Low Priority</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+             TEAM SECTION
+             ============================================ -->
+        <div class="card" style="margin-bottom: 2rem;">
+          <div class="card-header">
+            <h3 class="card-title">Team Members</h3>
+            <a href="team.html" style="font-size: 0.85rem; color: var(--info);">View All</a>
+          </div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem;">
+              <!-- Team Member 1 -->
+              <div style="text-align: center;">
+                <div style="width: 70px; height: 70px; margin: 0 auto 1rem; border-radius: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">SA</div>
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Sarah Anderson</div>
+                <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Frontend Developer</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--success);"></span>
+                  Online
+                </div>
+              </div>
+
+              <!-- Team Member 2 -->
+              <div style="text-align: center;">
+                <div style="width: 70px; height: 70px; margin: 0 auto 1rem; border-radius: 1rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">MC</div>
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Mike Chen</div>
+                <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Backend Developer</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--success);"></span>
+                  Online
+                </div>
+              </div>
+
+              <!-- Team Member 3 -->
+              <div style="text-align: center;">
+                <div style="width: 70px; height: 70px; margin: 0 auto 1rem; border-radius: 1rem; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">JD</div>
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Jessica Davis</div>
+                <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">UI/UX Designer</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: #cbd5e0;"></span>
+                  Away
+                </div>
+              </div>
+
+              <!-- Team Member 4 -->
+              <div style="text-align: center;">
+                <div style="width: 70px; height: 70px; margin: 0 auto 1rem; border-radius: 1rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700;">EM</div>
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Emma Wilson</div>
+                <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Product Manager</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.85rem;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--success);"></span>
+                  Online
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/charts.js"></script>
+</body>
+</html>

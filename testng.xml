@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Smart Task Management System Automation Suite">
+    <listeners>
+        <listener class-name="utilities.ScreenshotListener"/>
+    </listeners>
+
+    <test name="TaskFlow UI Tests">
+        <classes>
+            <class name="tests.TaskFlowTests"/>
+        </classes>
+    </test>
+</suite>

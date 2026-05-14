@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks - Smart Task Management System</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="main-wrapper">
+    <!-- ============================================
+         SIDEBAR NAVIGATION
+         ============================================ -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <i class="fas fa-tasks"></i>
+        <span>TaskFlow</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Menu</div>
+        <div class="nav-item" data-page="dashboard">
+          <i class="fas fa-grid-alt"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item active" data-page="tasks">
+          <i class="fas fa-list-check"></i>
+          <span>Tasks</span>
+        </div>
+        <div class="nav-item" data-page="calendar">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Calendar</span>
+        </div>
+        <div class="nav-item" data-page="analytics">
+          <i class="fas fa-chart-line"></i>
+          <span>Analytics</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Team</div>
+        <div class="nav-item" data-page="team">
+          <i class="fas fa-users"></i>
+          <span>Team Members</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Settings</div>
+        <div class="nav-item" data-page="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+      </div>
+
+      <div class="nav-separator"></div>
+
+      <div class="sidebar-footer">
+        <div class="nav-item" data-page="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
+    <div class="content-wrapper">
+      <!-- ============================================
+           NAVBAR
+           ============================================ -->
+      <nav class="navbar">
+        <div class="navbar-content">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search tasks, team members...">
+          </div>
+
+          <div class="navbar-right">
+            <button class="navbar-icon" title="Notifications">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+
+            <button class="navbar-icon theme-toggle" title="Toggle dark mode">
+              <i class="fas fa-moon"></i>
+            </button>
+
+            <div class="profile-section">
+              <div class="profile-avatar">JD</div>
+              <div class="profile-info">
+                <div class="profile-name">John Doe</div>
+                <div class="profile-role">Project Manager</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- ============================================
+           PAGE CONTENT
+           ============================================ -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-title">
+            <h1>Task Board</h1>
+            <p>Manage your tasks using Kanban board. Drag and drop to change status.</p>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn btn-secondary" type="button">
+              <i class="fas fa-sliders-h"></i>Filter
+            </button>
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-plus"></i>New Task
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+          <select class="form-select task-filter-priority" style="width: auto; max-width: 200px;" aria-label="Filter by priority">
+            <option value="all">All Priorities</option>
+            <option value="high">High Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="low">Low Priority</option>
+          </select>
+          <select class="form-select task-filter-status" style="width: auto; max-width: 200px;" aria-label="Filter by status">
+            <option value="all">All Statuses</option>
+            <option value="todo">To Do</option>
+            <option value="inprogress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+          <select class="form-select task-filter-due" style="width: auto; max-width: 200px;" aria-label="Filter by due date">
+            <option value="all">All Due Dates</option>
+            <option value="today">Due Today</option>
+            <option value="overdue">Overdue</option>
+          </select>
+        </div>
+
+        <!-- ============================================
+             KANBAN BOARD
+             ============================================ -->
+        <div class="kanban-container">
+          <!-- TO DO COLUMN -->
+          <div class="kanban-column">
+            <div class="kanban-header">
+              <div class="kanban-title">
+                <i class="fas fa-circle" style="color: #3b82f6; font-size: 0.6rem;"></i>
+                To Do
+              </div>
+              <div class="kanban-count">8</div>
+            </div>
+
+            <div class="kanban-list" data-column="todo">
+              <!-- Task 1 -->
+              <div class="task-card high-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label design">Design</span>
+                  <span class="label urgent">Urgent</span>
+                </div>
+                <div class="task-title">Homepage UI Redesign</div>
+                <div class="task-description">Complete redesign of the landing page with new branding</div>
+                <div class="task-meta">
+                  <span class="task-priority high">
+                    <i class="fas fa-arrow-up"></i>High
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 25
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" title="Jessica Davis">JD</div>
+                  <div class="avatar-sm" title="Sarah Anderson">SA</div>
+                  <div class="avatar-sm extra">+2</div>
+                </div>
+              </div>
+
+              <!-- Task 2 -->
+              <div class="task-card medium-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label backend">Backend</span>
+                </div>
+                <div class="task-title">API Authentication</div>
+                <div class="task-description">Implement JWT-based authentication for REST API</div>
+                <div class="task-meta">
+                  <span class="task-priority medium">
+                    <i class="fas fa-minus"></i>Medium
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 28
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MC</div>
+                </div>
+              </div>
+
+              <!-- Task 3 -->
+              <div class="task-card low-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label frontend">Frontend</span>
+                </div>
+                <div class="task-title">Add Dark Mode Support</div>
+                <div class="task-description">Implement theme switcher and dark mode CSS</div>
+                <div class="task-meta">
+                  <span class="task-priority low">
+                    <i class="fas fa-arrow-down"></i>Low
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Dec 5
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" title="Sarah Anderson">SA</div>
+                </div>
+              </div>
+
+              <!-- Task 4 -->
+              <div class="task-card high-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label design">Design</span>
+                </div>
+                <div class="task-title">Create Icon Set</div>
+                <div class="task-description">Design comprehensive icon library for UI components</div>
+                <div class="task-meta">
+                  <span class="task-priority high">
+                    <i class="fas fa-arrow-up"></i>High
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 26
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">JD</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IN PROGRESS COLUMN -->
+          <div class="kanban-column">
+            <div class="kanban-header">
+              <div class="kanban-title">
+                <i class="fas fa-circle" style="color: #f59e0b; font-size: 0.6rem;"></i>
+                In Progress
+              </div>
+              <div class="kanban-count">5</div>
+            </div>
+
+            <div class="kanban-list" data-column="inprogress">
+              <!-- Task 1 -->
+              <div class="task-card medium-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label backend">Backend</span>
+                </div>
+                <div class="task-title">Database Schema Optimization</div>
+                <div class="task-description">Optimize queries and add proper indexing</div>
+                <div class="task-meta">
+                  <span class="task-priority medium">
+                    <i class="fas fa-minus"></i>Medium
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 27
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MC</div>
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">EM</div>
+                </div>
+              </div>
+
+              <!-- Task 2 -->
+              <div class="task-card high-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label frontend">Frontend</span>
+                  <span class="label urgent">Urgent</span>
+                </div>
+                <div class="task-title">Payment Integration</div>
+                <div class="task-description">Integrate Stripe payment gateway</div>
+                <div class="task-meta">
+                  <span class="task-priority high">
+                    <i class="fas fa-arrow-up"></i>High
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 24
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm">SA</div>
+                  <div class="avatar-sm extra">+1</div>
+                </div>
+              </div>
+
+              <!-- Task 3 -->
+              <div class="task-card low-priority" data-searchable>
+                <div class="task-labels">
+                  <span class="label design">Design</span>
+                </div>
+                <div class="task-title">User Research Report</div>
+                <div class="task-description">Compile user testing results and recommendations</div>
+                <div class="task-meta">
+                  <span class="task-priority low">
+                    <i class="fas fa-arrow-down"></i>Low
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 29
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">JD</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPLETED COLUMN -->
+          <div class="kanban-column">
+            <div class="kanban-header">
+              <div class="kanban-title">
+                <i class="fas fa-circle" style="color: #10b981; font-size: 0.6rem;"></i>
+                Completed
+              </div>
+              <div class="kanban-count">12</div>
+            </div>
+
+            <div class="kanban-list" data-column="completed">
+              <!-- Task 1 -->
+              <div class="task-card" data-searchable style="opacity: 0.8;">
+                <div class="task-labels">
+                  <span class="label backend">Backend</span>
+                </div>
+                <div class="task-title" style="text-decoration: line-through; color: var(--text-gray);">
+                  Setup Production Server
+                </div>
+                <div class="task-description">Configure AWS EC2 and RDS instances</div>
+                <div class="task-meta">
+                  <span class="badge badge-success">
+                    <i class="fas fa-check-circle"></i>Completed
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 15
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MC</div>
+                </div>
+              </div>
+
+              <!-- Task 2 -->
+              <div class="task-card" data-searchable style="opacity: 0.8;">
+                <div class="task-labels">
+                  <span class="label frontend">Frontend</span>
+                </div>
+                <div class="task-title" style="text-decoration: line-through; color: var(--text-gray);">
+                  Responsive Layout Implementation
+                </div>
+                <div class="task-description">Make all pages mobile-friendly</div>
+                <div class="task-meta">
+                  <span class="badge badge-success">
+                    <i class="fas fa-check-circle"></i>Completed
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 18
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm">SA</div>
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">JD</div>
+                </div>
+              </div>
+
+              <!-- Task 3 -->
+              <div class="task-card" data-searchable style="opacity: 0.8;">
+                <div class="task-labels">
+                  <span class="label design">Design</span>
+                </div>
+                <div class="task-title" style="text-decoration: line-through; color: var(--text-gray);">
+                  Brand Guidelines Documentation
+                </div>
+                <div class="task-description">Create comprehensive brand style guide</div>
+                <div class="task-meta">
+                  <span class="badge badge-success">
+                    <i class="fas fa-check-circle"></i>Completed
+                  </span>
+                  <span class="task-due-date">
+                    <i class="fas fa-calendar"></i>Nov 20
+                  </span>
+                </div>
+                <div class="task-assignees">
+                  <div class="avatar-sm" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">EM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+             ADD TASK MODAL
+             ============================================ -->
+        <div id="addTaskModal" class="modal-overlay">
+          <div class="modal">
+            <div class="modal-header">
+              <h2 class="modal-title">Create New Task</h2>
+              <button class="modal-close">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <form class="modal-body" style="display: flex; flex-direction: column; gap: 1rem;" data-reset-on-submit="false">
+              <div class="form-group">
+                <label for="taskTitle" class="form-label">Task Title</label>
+                <input type="text" id="taskTitle" class="form-input" placeholder="Enter task title" required>
+              </div>
+
+              <div class="form-group">
+                <label for="taskDesc" class="form-label">Description</label>
+                <textarea id="taskDesc" class="form-textarea" placeholder="Enter task description"></textarea>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="taskPriority" class="form-label">Priority</label>
+                  <select id="taskPriority" class="form-select">
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="taskDueDate" class="form-label">Due Date</label>
+                  <input type="date" id="taskDueDate" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="taskAssignee" class="form-label">Assign To</label>
+                <select id="taskAssignee" class="form-select">
+                  <option>Sarah Anderson</option>
+                  <option>Mike Chen</option>
+                  <option>Jessica Davis</option>
+                  <option>Emma Wilson</option>
+                </select>
+              </div>
+            </form>
+
+            <div class="modal-footer">
+              <button class="btn btn-ghost modal-close" type="button">Cancel</button>
+              <button class="btn btn-primary" type="button">Create Task</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

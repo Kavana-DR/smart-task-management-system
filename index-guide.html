@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Index - Smart Task Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 3rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .card a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .section {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .file-item {
+      background: #f8f9fc;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border-left: 4px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .file-desc {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.25rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge.html { background: #e34c26; }
+    .badge.css { background: #563d7c; }
+    .badge.js { background: #f7df1e; color: #333; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .feature {
+      padding: 1rem;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .feature i {
+      color: #667eea;
+      font-size: 1.5rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🚀 Smart Task Management System</h1>
+      <p>Modern SaaS-style Task Management Dashboard</p>
+    </div>
+
+    <!-- Quick Start Cards -->
+    <div class="grid">
+      <div class="card">
+        <h3><i class="fas fa-play"></i> Get Started</h3>
+        <p>Start exploring the application by logging in with any credentials.</p>
+        <a href="index.html">Open Login Page →</a>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-book"></i> Documentation</h3>
+        <p>Read the complete documentation and feature guide.</p>
+        <a href="README.md" download>Download README →</a>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-code"></i> Source Code</h3>
+        <p>View and customize the source code files.</p>
+        <a href="assets/css/style.css" target="_blank">View CSS →</a>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="section">
+      <h2><i class="fas fa-chart-bar"></i> Project Statistics</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">7</div>
+          <div class="stat-label">Pages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">3000+</div>
+          <div class="stat-label">Lines of CSS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">1000+</div>
+          <div class="stat-label">Lines of JS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Responsive</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Structure -->
+    <div class="section">
+      <h2><i class="fas fa-folder"></i> Project Structure</h2>
+      
+      <h3 style="color: #333; margin-top: 1.5rem; margin-bottom: 0.75rem;">📄 HTML Pages</h3>
+      <div class="file-list">
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> index.html</div>
+            <div class="file-desc">Login/Authentication page</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> dashboard.html</div>
+            <div class="file-desc">Main dashboard with stats and analytics</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> tasks.html</div>
+            <div class="file-desc">Kanban board for task management</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> analytics.html</div>
+            <div class="file-desc">Advanced analytics and reports</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> team.html</div>
+            <div class="file-desc">Team collaboration and members</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> calendar.html</div>
+            <div class="file-desc">Calendar and event management</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> settings.html</div>
+            <div class="file-desc">User settings and preferences</div>
+          </div>
+          <span class="badge html">HTML</span>
+        </div>
+      </div>
+
+      <h3 style="color: #333; margin-top: 1.5rem; margin-bottom: 0.75rem;">🎨 Stylesheets</h3>
+      <div class="file-list">
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> assets/css/style.css</div>
+            <div class="file-desc">Complete styling with glassmorphism, gradients, animations</div>
+          </div>
+          <span class="badge css">CSS</span>
+        </div>
+      </div>
+
+      <h3 style="color: #333; margin-top: 1.5rem; margin-bottom: 0.75rem;">⚙️ JavaScript Files</h3>
+      <div class="file-list">
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> assets/js/script.js</div>
+            <div class="file-desc">Core functionality: dark mode, navigation, forms, drag & drop</div>
+          </div>
+          <span class="badge js">JavaScript</span>
+        </div>
+        <div class="file-item">
+          <div>
+            <div class="file-name"><i class="fas fa-file-code"></i> assets/js/charts.js</div>
+            <div class="file-desc">Chart.js initialization and data visualization</div>
+          </div>
+          <span class="badge js">JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Features -->
+    <div class="section">
+      <h2><i class="fas fa-star"></i> Key Features</h2>
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-paint-brush"></i>
+          <span><strong>Glassmorphism</strong> - Modern UI design</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-mobile-alt"></i>
+          <span><strong>Responsive</strong> - Mobile to desktop</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-moon"></i>
+          <span><strong>Dark Mode</strong> - System preference</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-hand-paper"></i>
+          <span><strong>Drag & Drop</strong> - Kanban board</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-chart-line"></i>
+          <span><strong>Analytics</strong> - Real-time charts</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-search"></i>
+          <span><strong>Search</strong> - Quick task search</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-filter"></i>
+          <span><strong>Filtering</strong> - By priority, assignee</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-magic"></i>
+          <span><strong>Animations</strong> - Smooth transitions</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Guide -->
+    <div class="section">
+      <h2><i class="fas fa-map"></i> Quick Navigation</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <a href="index.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <a href="dashboard.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-chart-pie"></i> Dashboard
+        </a>
+        <a href="tasks.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-tasks"></i> Tasks
+        </a>
+        <a href="analytics.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-chart-bar"></i> Analytics
+        </a>
+        <a href="team.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-users"></i> Team
+        </a>
+        <a href="calendar.html" style="padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fas fa-calendar"></i> Calendar
+        </a>
+      </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="section">
+      <h2><i class="fas fa-cogs"></i> Technology Stack</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #e34c26;">
+          <strong>HTML5</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Semantic markup, forms, accessibility</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #563d7c;">
+          <strong>CSS3</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Grid, Flexbox, Variables, Animations, Gradients</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #f7df1e;">
+          <strong>JavaScript ES6+</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Classes, Async, Local Storage, DOM APIs</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #667eea;">
+          <strong>Chart.js</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Data visualization, responsive charts</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #764ba2;">
+          <strong>Font Awesome</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Icon library, 6000+ icons</p>
+        </div>
+        <div style="padding: 1rem; background: #f8f9fc; border-radius: 0.5rem; border-left: 4px solid #f59e0b;">
+          <strong>Responsive Design</strong>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Mobile-first, media queries</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>✨ Smart Task Management System - Built with HTML, CSS & JavaScript ✨</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">Premium SaaS Dashboard Design</p>
+    </footer>
+  </div>
+</body>
+</html>

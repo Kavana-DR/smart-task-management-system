@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Smart Task Management System</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="main-wrapper">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <i class="fas fa-tasks"></i>
+        <span>TaskFlow</span>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Menu</div>
+        <div class="nav-item" data-page="dashboard">
+          <i class="fas fa-grid-alt"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-page="tasks">
+          <i class="fas fa-list-check"></i>
+          <span>Tasks</span>
+        </div>
+        <div class="nav-item" data-page="calendar">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Calendar</span>
+        </div>
+        <div class="nav-item" data-page="analytics">
+          <i class="fas fa-chart-line"></i>
+          <span>Analytics</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Team</div>
+        <div class="nav-item" data-page="team">
+          <i class="fas fa-users"></i>
+          <span>Team Members</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Settings</div>
+        <div class="nav-item active" data-page="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+      </div>
+
+      <div class="nav-separator"></div>
+
+      <div class="sidebar-footer">
+        <div class="nav-item" data-page="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-wrapper">
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <div class="navbar-content">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search settings...">
+          </div>
+
+          <div class="navbar-right">
+            <button class="navbar-icon" title="Notifications">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+
+            <button class="navbar-icon theme-toggle" title="Toggle dark mode">
+              <i class="fas fa-moon"></i>
+            </button>
+
+            <div class="profile-section">
+              <div class="profile-avatar">JD</div>
+              <div class="profile-info">
+                <div class="profile-name">John Doe</div>
+                <div class="profile-role">Project Manager</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- PAGE CONTENT -->
+      <main class="main-content">
+        <div class="page-header">
+          <div class="page-title">
+            <h1>Settings</h1>
+            <p>Manage your account and application preferences.</p>
+          </div>
+        </div>
+
+        <!-- Settings Tabs -->
+        <div style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem;">
+          <!-- Settings Menu -->
+          <div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; position: sticky; top: 0;">
+              <button class="btn btn-ghost" style="justify-content: flex-start; background: rgba(102, 126, 234, 0.1); border-color: var(--info); color: var(--info);">
+                <i class="fas fa-user"></i>Account
+              </button>
+              <button class="btn btn-ghost" style="justify-content: flex-start;">
+                <i class="fas fa-lock"></i>Security
+              </button>
+              <button class="btn btn-ghost" style="justify-content: flex-start;">
+                <i class="fas fa-bell"></i>Notifications
+              </button>
+              <button class="btn btn-ghost" style="justify-content: flex-start;">
+                <i class="fas fa-palette"></i>Appearance
+              </button>
+              <button class="btn btn-ghost" style="justify-content: flex-start;">
+                <i class="fas fa-shield-alt"></i>Privacy
+              </button>
+              <button class="btn btn-ghost" style="justify-content: flex-start;">
+                <i class="fas fa-share-alt"></i>Integrations
+              </button>
+            </div>
+          </div>
+
+          <!-- Settings Content -->
+          <div>
+            <!-- ACCOUNT SETTINGS -->
+            <div class="card" style="margin-bottom: 2rem;">
+              <div class="card-header">
+                <h3 class="card-title">Account Settings</h3>
+              </div>
+              <div class="card-body">
+                <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                  <!-- Profile Picture -->
+                  <div>
+                    <label class="form-label">Profile Picture</label>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                      <div style="width: 80px; height: 80px; border-radius: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.5rem;">JD</div>
+                      <button type="button" class="btn btn-secondary">
+                        <i class="fas fa-upload"></i>Upload New Photo
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Full Name -->
+                  <div class="form-group">
+                    <label for="fullname" class="form-label">Full Name</label>
+                    <input type="text" id="fullname" class="form-input" value="John Doe" required>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" value="john.doe@example.com" required>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="+1 (555) 123-4567">
+                  </div>
+
+                  <!-- Bio -->
+                  <div class="form-group">
+                    <label for="bio" class="form-label">Bio</label>
+                    <textarea id="bio" class="form-textarea" placeholder="Tell us about yourself...">Project Manager with 5+ years of experience in agile teams.</textarea>
+                  </div>
+
+                  <!-- Department -->
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                      <label for="department" class="form-label">Department</label>
+                      <select id="department" class="form-select">
+                        <option>Management</option>
+                        <option>Engineering</option>
+                        <option>Design</option>
+                        <option>Marketing</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="role" class="form-label">Role</label>
+                      <select id="role" class="form-select">
+                        <option>Project Manager</option>
+                        <option>Team Lead</option>
+                        <option>Member</option>
+                        <option>Admin</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fas fa-save"></i>Save Changes
+                    </button>
+                    <button type="reset" class="btn btn-ghost">
+                      <i class="fas fa-times"></i>Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- APPEARANCE SETTINGS -->
+            <div class="card" style="margin-bottom: 2rem;">
+              <div class="card-header">
+                <h3 class="card-title">Appearance</h3>
+              </div>
+              <div class="card-body">
+                <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                  <!-- Theme -->
+                  <div class="form-group">
+                    <label class="form-label">Theme</label>
+                    <div style="display: flex; gap: 1rem;">
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="theme" value="light" checked>
+                        <span>Light</span>
+                      </label>
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="theme" value="dark">
+                        <span>Dark</span>
+                      </label>
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="theme" value="auto">
+                        <span>Auto (System)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Font Size -->
+                  <div class="form-group">
+                    <label for="fontSize" class="form-label">Font Size</label>
+                    <select id="fontSize" class="form-select">
+                      <option>Small</option>
+                      <option selected>Normal</option>
+                      <option>Large</option>
+                    </select>
+                  </div>
+
+                  <!-- Compact Mode -->
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 600;">Compact Mode</div>
+                      <div style="font-size: 0.85rem; color: var(--text-gray);">Reduce spacing for more content</div>
+                    </div>
+                    <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                      <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                      <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e0; transition: 0.3s; border-radius: 24px;"></span>
+                      <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%;"></span>
+                    </label>
+                  </div>
+
+                  <!-- Sidebar -->
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 600;">Show Sidebar Labels</div>
+                      <div style="font-size: 0.85rem; color: var(--text-gray);">Display text labels in sidebar</div>
+                    </div>
+                    <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                      <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                      <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--info); transition: 0.3s; border-radius: 24px;"></span>
+                      <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 29px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%;"></span>
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+                    <i class="fas fa-save"></i>Save Preferences
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- NOTIFICATION SETTINGS -->
+            <div class="card" style="margin-bottom: 2rem;">
+              <div class="card-header">
+                <h3 class="card-title">Notification Preferences</h3>
+              </div>
+              <div class="card-body">
+                <form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 600;">Email Notifications</div>
+                      <div style="font-size: 0.85rem; color: var(--text-gray);">Receive task updates via email</div>
+                    </div>
+                    <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                      <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                      <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--info); transition: 0.3s; border-radius: 24px;"></span>
+                      <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 29px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%;"></span>
+                    </label>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 600;">Task Reminders</div>
+                      <div style="font-size: 0.85rem; color: var(--text-gray);">Get reminders for upcoming tasks</div>
+                    </div>
+                    <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                      <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                      <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--info); transition: 0.3s; border-radius: 24px;"></span>
+                      <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 29px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%;"></span>
+                    </label>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-weight: 600;">Team Updates</div>
+                      <div style="font-size: 0.85rem; color: var(--text-gray);">Notifications about team activities</div>
+                    </div>
+                    <label style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                      <input type="checkbox" style="opacity: 0; width: 0; height: 0;">
+                      <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e0; transition: 0.3s; border-radius: 24px;"></span>
+                      <span style="position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%;"></span>
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+                    <i class="fas fa-save"></i>Save Notifications
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- DANGER ZONE -->
+            <div class="card" style="border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.03);">
+              <div class="card-header" style="border-bottom-color: rgba(239, 68, 68, 0.2);">
+                <h3 class="card-title" style="color: var(--danger);">Danger Zone</h3>
+              </div>
+              <div class="card-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 0.75rem; margin-bottom: 1rem;">
+                  <div>
+                    <div style="font-weight: 600; color: var(--danger);">Change Password</div>
+                    <div style="font-size: 0.85rem; color: var(--text-gray);">Update your password for better security</div>
+                  </div>
+                  <button class="btn btn-ghost" style="border-color: var(--danger); color: var(--danger);">
+                    <i class="fas fa-key"></i>Change
+                  </button>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 0.75rem;">
+                  <div>
+                    <div style="font-weight: 600; color: var(--danger);">Delete Account</div>
+                    <div style="font-size: 0.85rem; color: var(--text-gray);">Permanently delete your account and data</div>
+                  </div>
+                  <button class="btn btn-ghost" style="border-color: var(--danger); color: var(--danger);">
+                    <i class="fas fa-trash"></i>Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
